@@ -17,4 +17,7 @@
     <string name="berat_invalid">Berat tidak boleh kosong.</string>
     <string name="tinggi_invalid">Tinggi tidak boleh kosong.</string>
     <string name="gender_invalid">Pilih jenis kelamin.</string>
+
+
+
 </resources>
