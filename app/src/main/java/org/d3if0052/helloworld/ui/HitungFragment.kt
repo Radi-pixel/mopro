@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
+import org.d3if0052.helloworld.R
 import org.d3if0052.helloworld.databinding.ActivityMainBinding
 import org.d3if0052.helloworld.model.HasilBmi
 import org.d3if0052.helloworld.model.KategoriBmi
