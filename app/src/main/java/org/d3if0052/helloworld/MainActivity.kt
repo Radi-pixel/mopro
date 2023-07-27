@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import org.d3if0052.helloworld.databinding.ActivityMainBinding
 import org.d3if0052.helloworld.model.KategoriBmi
 
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
         return kategori
     }
+    fun getHasilBmi(): LiveData<HasilBmi?> = hasilBmi
     private fun getKategoriLabel(kategori: KategoriBmi): String {
         val stringRes = when (kategori) {
             KategoriBmi.KURUS -> R.string.kurus
@@ -67,11 +69,11 @@ class MainActivity : AppCompatActivity() {
         }
         return getString(stringRes)
     }
-    private fun hitungBmi(berat: Float, tinggi: Float, isMale: Boolean): HasilBmi {
+    fun hitungBmi(berat: Float, tinggi: Float, isMale: Boolean) {
         val tinggiCm = tinggi / 100
         val bmi = berat / (tinggiCm * tinggiCm)
         val kategori = getKategori(bmi, isMale)
-        return HasilBmi(bmi, kategori)
+        HasilBmi(bmi, kategori)
     }
     private fun showResult(result: HasilBmi) {
         binding.bmiTextView.text = getString(R.string.bmi_x, result.bmi)
