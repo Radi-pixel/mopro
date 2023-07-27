@@ -31,18 +31,16 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.tinggi_invalid, Toast.LENGTH_LONG).show()
             return
         }
-        val tinggiCm = tinggi.toFloat() / 100
+
         val selectedId = binding.radioGroup.checkedRadioButtonId
         if (selectedId == -1) {
             Toast.makeText(this, R.string.gender_invalid, Toast.LENGTH_LONG).show()
             return
         }
-        val isMale = selectedId == R.id.priaRadioButton
-        val bmi = berat.toFloat() / (tinggiCm * tinggiCm)
-        val kategori = getKategori(bmi, isMale)
-        binding.bmiTextView.text = getString(R.string.bmi_x, bmi)
-        binding.kategoriTextView.text = getString(R.string.kategori_x,
-            getKategoriLabel(kategori))
+        val result = hitungBmi(
+            berat.toFloat(),
+            tinggi.toFloat(),
+            selectedId == R.id.priaRadioButton
     }
 
     private fun getKategori(bmi: Float, isMale: Boolean): KategoriBmi {
@@ -69,4 +67,14 @@ class MainActivity : AppCompatActivity() {
         }
         return getString(stringRes)
     }
+    private fun hitungBmi(berat: Float, tinggi: Float, isMale: Boolean): HasilBmi {
+        val tinggiCm = tinggi / 100
+        val bmi = berat / (tinggiCm * tinggiCm)
+        val kategori = getKategori(bmi, isMale)
+        return HasilBmi(bmi, kategori)
+    }
+    private fun showResult(result: HasilBmi) {
+        binding.bmiTextView.text = getString(R.string.bmi_x, result.bmi)
+        binding.kategoriTextView.text = getString(R.string.kategori_x,
+            getKategoriLabel(result.kategori))}
 }
