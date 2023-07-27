@@ -8,4 +8,7 @@
         android:id="@+id/hitungFragment"
         android:name="org.d3if0052.helloworld.HitungFragment"
         android:label="HitungFragment" />
+    <action
+        android:id="@+id/action_hitungFragment_to_saranFragment"
+
 </navigation>
