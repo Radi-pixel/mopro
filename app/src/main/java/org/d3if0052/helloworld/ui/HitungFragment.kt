@@ -1,29 +1,22 @@
-package org.d3if0052.helloworld
+package org.d3if0052.helloworld.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import org.d3if0052.helloworld.databinding.ActivityMainBinding
 import org.d3if0052.helloworld.model.HasilBmi
 import org.d3if0052.helloworld.model.KategoriBmi
 
-class HitungFragment : Fragment() {
+class HitungFragment : AppCompatActivity() {
 
-
-    private lateinit var binding: FragmentHitungBinding
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-
-        binding = FragmentHitungBinding.inflate(layoutInflater, container, false)
-        return binding.root
+    private lateinit var binding: ActivityMainBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         binding.button.setOnClickListener { hitungBmi() }
     }
 
