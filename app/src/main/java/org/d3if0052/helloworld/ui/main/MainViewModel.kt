@@ -1,7 +1,9 @@
 package org.d3if0052.helloworld.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.Dispatchers
 import org.d3if0052.helloworld.Hewan
 import org.d3if0052.helloworld.R
 
@@ -9,6 +11,17 @@ class MainViewModel {
     private val data = MutableLiveData<List<Hewan>>()
     init {
         data.value = initData()
+    }
+
+    private fun retrieveData() {
+        viewModelScope.launch (Dispatchers.IO) {
+            try {
+                val result = HewanApi.service.getHewan()
+                Log.d("MainViewModel", "Success: $result")
+            } catch (e: Exception) {
+                Log.d("MainViewModel", "Failure: ${e.message}")
+            }
+        }
     }
 
     private fun initData(): List<Hewan> {
