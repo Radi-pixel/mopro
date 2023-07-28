@@ -87,4 +87,9 @@ class HitungFragment : Fragment() {
         binding.bmiTextView.text = getString(R.string.bmi_x, result.bmi)
         binding.kategoriTextView.text = getString(R.string.kategori_x,
             getKategoriLabel(result.kategori))}
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.data.observe(viewLifecycleOwner, {
+            Log.d("HistoriFragment", "Jumlah data: ${it.size}")
+        })
+    }
 }
