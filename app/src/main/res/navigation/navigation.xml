@@ -12,7 +12,10 @@
         android:id="@+id/action_hitungFragment_to_saranFragment"
         app:destination="@+id/saranFragment" />
     <action
-        android:id="@+id/action_hitungFragment_to_aboutFragment"
-        app:destination="@id/aboutFragment" />
+        android:id="@+id/action_hitungFragment_to_historiFragment"
+        app:destination="@id/historiFragment" />
+    <fragment
+        android:id="@+id/historiFragment"
+        android:label="@string/histori"
 
 </navigation>
