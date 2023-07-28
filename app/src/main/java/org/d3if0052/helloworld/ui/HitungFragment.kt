@@ -19,6 +19,7 @@ class HitungFragment : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.button.setOnClickListener { hitungBmi() }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 
     private fun hitungBmi() {
