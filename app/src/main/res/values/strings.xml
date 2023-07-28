@@ -21,4 +21,11 @@
 cm\nJenis kelamin: %3$s\n\n%4$s\n%5$s</string>
     <string name="belum_ada_data">Belum ada data</string>
     <string name="histori">Histori</string>
+
+    <color name="kurus">#F57F17</color>
+    <color name="ideal">#2E7D32</color>
+    <color name="gemuk">#D32F2F</color>
+
+    <string name="hasil_x">BMI: %1$.2f - %2$s</string>
+    <string name="data_x">BB: %1$.1f - TB: %2$.1f - %3$s</string>
 </resources>

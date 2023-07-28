@@ -43,7 +43,7 @@ class HitungFragment : Fragment() {
 
         val selectedId = binding.radioGroup.checkedRadioButtonId
         if (selectedId == -1) {
-            Toast.makeText(this, R.string.gender_invalid, Toast.LENGTH_LONG).show()
+            Toast.akeText(this, R.string.gender_invalid, Toast.LENGTH_LONG).show()
             return
         }
         val result = hitungBmi(
