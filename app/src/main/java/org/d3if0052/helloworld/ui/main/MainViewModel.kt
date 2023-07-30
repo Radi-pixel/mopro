@@ -6,19 +6,24 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import org.d3if0052.helloworld.Hewan
 import org.d3if0052.helloworld.R
+import org.d3if0052.helloworld.network.HewanApiService
 
 class MainViewModel {
     private val data = MutableLiveData<List<Hewan>>()
+    private val status = MutableLiveData<HewanApiService.ApiStatus>()
     init {
         data.value = initData()
     }
 
     private fun retrieveData() {
         viewModelScope.launch (Dispatchers.IO) {
+            status.postValue(HewanApiService.ApiStatus.LOADING)
             try {
                 data.postValue(HewanApi.service.getHewan())
+                status.postValue(HewanApiService.ApiStatus.SUCCESS)
             } catch (e: Exception) {
                 Log.d("MainViewModel", "Failure: ${e.message}")
+                status.postValue(HewanApiService.ApiStatus.FAILED)
             }
         }
     }
@@ -38,6 +43,8 @@ class MainViewModel {
         )
     }
     fun getData(): LiveData<List<Hewan>> = data
+
+    fun getStatus(): LiveData<HewanApiService.ApiStatus> = status
 }
 
 
