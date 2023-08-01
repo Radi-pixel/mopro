@@ -1,12 +1,17 @@
 package org.d3if0052.helloworld.ui.main
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import kotlinx.coroutines.Dispatchers
 import org.d3if0052.helloworld.Hewan
 import org.d3if0052.helloworld.R
 import org.d3if0052.helloworld.network.HewanApiService
+import org.d3if0052.helloworld.network.UpdateWorker
 
 class MainViewModel {
     private val data = MutableLiveData<List<Hewan>>()
@@ -45,6 +50,17 @@ class MainViewModel {
     fun getData(): LiveData<List<Hewan>> = data
 
     fun getStatus(): LiveData<HewanApiService.ApiStatus> = status
+
+    fun scheduleUpdater(app: Application) {
+        val request = OneTimeWorkRequestBuilder<UpdateWorker>()
+            .setInitialDelay(1, TimeUnit.MINUTES)
+            .build()
+        WorkManager.getInstance(app).enqueueUniqueWork(
+            UpdateWorker.WORK_NAME,
+            ExistingWorkPolicy.REPLACE,
+            request
+        )
+    }
 }
 
 
