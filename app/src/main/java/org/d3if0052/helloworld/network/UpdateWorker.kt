@@ -1,9 +1,16 @@
 package org.d3if0052.helloworld.network
 
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import org.d3if0052.helloworld.MainActivity
+import org.d3if0052.helloworld.R
 
 class UpdateWorker(
     context: Context,
@@ -11,9 +18,34 @@ class UpdateWorker(
 ) : CoroutineWorker(context, workerParams) {
     companion object {
         const val WORK_NAME = "updater"
+        private const val NOTIFICATION_ID = 44
     }
     override suspend fun doWork(): Result {
         Log.d("Worker", "Menjalankan proses background..")
         return Result.success()
     }
+
+    val builder = NotificationCompat.Builder(applicationContext,
+        MainActivity.CHANNEL_ID)
+        .setSmallIcon(R.mipmap.ic_launcher_round)
+        .setContentTitle(applicationContext.getString(
+            R.string.notif_title))
+        .setContentText(applicationContext.getString(
+            R.string.notif_text))
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
+        .setContentIntent(getPendingIntent(applicationContext))
+        .setAutoCancel(true)
+    val manager = NotificationManagerCompat.from(applicationContext)
+}
+
+private fun getPendingIntent(context: Context): PendingIntent {
+    val intent = Intent(context, MainActivity::class.java)
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+    var flags = PendingIntent.FLAG_UPDATE_CURRENT
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        flags = flags or PendingIntent.FLAG_IMMUTABLE
+    }
+    return PendingIntent.getActivity(context, 0, intent, flags)
 }
