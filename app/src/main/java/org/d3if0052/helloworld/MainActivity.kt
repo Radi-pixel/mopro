@@ -6,9 +6,11 @@ import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if0052.helloworld.databinding.ActivityMainBinding
+import org.d3if0052.helloworld.util.MyTimer
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var myTimer: MyTimer
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        myTimer = MyTimer()
+        myTimer.startTimer()
         Log.i("MainActivity", "onCreate dijalankan")
 
         with(binding.recyclerView) {
@@ -23,6 +27,12 @@ class MainActivity : AppCompatActivity() {
             adapter = MainAdapter(getData())
             setHasFixedSize(true)
         }
+    }
+
+    override fun onDestroy() {
+        Log.i("MainActivity", "onDestroy dipanggil.")
+        myTimer.stopTimer()
+        super.onDestroy()
     }
     private fun getData(): List<Hewan> {
         return listOf(
